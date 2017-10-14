@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Open BYOD</title>
+        <link rel="StyleSheet" type="text/css"
+              href="resources/css/table-style.css" />
+    </h:head>
+    <h:body>
+
+        <p:growl id="msgs" showDetail="true" />
+        <h2 style="margin-top: 0">Módulo de Relatórios</h2>
+        <p:tabView dynamic="true" cache="true">
+
+            <p:tab title="Chamadas Telefônicas Efetuadas">
+                <h:panelGrid columns="2" cellpadding="10" style="margin-bottom:10px">
+                    <h:form>
+                        <p:panel>
+                            <p:outputLabel for="mes" value="Escolha um Mês: " />
+                            <p:selectOneMenu id="mes" value="#{beanRelatorios.mes}"
+                                             effect="fold" editable="false">
+                                <f:selectItem itemLabel="Escolha um Mês" itemValue="" />
+                                <f:selectItems value="#{beanRelatorios.meses}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Gerar Relatório"
+                                             update="relatorioChamadas"
+                                             action="#{beanRelatorios.getRelatorioChamadas}"
+                                             icon="ui-icon-check"></p:commandButton>
+                        </p:panel>
+                        <p:panel id="relatorioChamadas" style="border:0px;">
+                            <h:outputText
+                                value="Não houve chamadas efetuadas no mês selecionado!"
+                                rendered="#{empty beanRelatorios.listaRelatorioChamadas}" />
+                            <p:dataTable value="#{beanRelatorios.listaRelatorioChamadas}"
+                                         var="row"
+                                         rendered="#{not empty beanRelatorios.listaRelatorioChamadas}"
+                                         rowKey="#{row.rotulo}">
+                                <f:facet name="header">
+                                    Chamadas efetuadas
+                                </f:facet>
+                                <p:column headerText="Usuário">
+                                    #{row.rotulo}
+                                </p:column>
+                                <p:column headerText="Quantidade">
+                                    #{row.quantidade}
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab title="E-mails enviados">
+                <h:panelGrid columns="2" cellpadding="10" style="margin-bottom:10px">
+                    <h:form>
+                        <p:panel>
+                            <p:outputLabel for="mes" value="Escolha um Mês: " />
+                            <p:selectOneMenu id="mes" value="#{beanRelatorios.mes}"
+                                             effect="fold" editable="false">
+                                <f:selectItem itemLabel="Escolha um Mês" itemValue="" />
+                                <f:selectItems value="#{beanRelatorios.meses}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Gerar Relatório"
+                                             update="relatorioEmailsEnviados"
+                                             action="#{beanRelatorios.getRelatorioEmailsEnviados}"
+                                             icon="ui-icon-check"></p:commandButton>
+                        </p:panel>
+                        <p:panel id="relatorioEmailsEnviados" style="border:0px;">
+                            <h:outputText
+                                value="Não houve e-mails enviados no mês selecionado! "
+                                rendered="#{empty beanRelatorios.listaRelatorioEmailsEnviados}" />
+                            <p:dataTable
+                                value="#{beanRelatorios.listaRelatorioEmailsEnviados}" var="row"
+                                rendered="#{not empty beanRelatorios.listaRelatorioEmailsEnviados}"
+                                rowKey="#{row.rotulo}">
+                                <f:facet name="header">
+                                    E-mails enviados
+                                </f:facet>
+                                <p:column headerText="E-mail Usuário">
+                                    #{row.rotulo}
+                                </p:column>
+                                <p:column headerText="Quantidade">
+                                    #{row.quantidade}
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab title="E-mails recebidos">
+                <h:panelGrid columns="2" cellpadding="10" style="margin-bottom:10px">
+                    <h:form>
+                        <p:panel>
+                            <p:outputLabel for="mes" value="Escolha um Mês: " />
+                            <p:selectOneMenu id="mes" value="#{beanRelatorios.mes}"
+                                             effect="fold" editable="false">
+                                <f:selectItem itemLabel="Escolha um Mês" itemValue="" />
+                                <f:selectItems value="#{beanRelatorios.meses}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Gerar Relatório"
+                                             update="relatorioEmailsRecebidos"
+                                             action="#{beanRelatorios.getRelatorioEmailsRecebidos}"
+                                             icon="ui-icon-check"></p:commandButton>
+                        </p:panel>
+                        <p:panel id="relatorioEmailsRecebidos" style="border:0px;">
+                            <h:outputText
+                                value="Não houve e-mails recebidos no mês selecionado!"
+                                rendered="#{empty beanRelatorios.listaRelatorioEmailsRecebidos}" />
+                            <p:dataTable
+                                value="#{beanRelatorios.listaRelatorioEmailsRecebidos}" var="row"
+                                rendered="#{not empty beanRelatorios.listaRelatorioEmailsRecebidos}"
+                                rowKey="#{row.rotulo}">
+                                <f:facet name="header">
+                                    E-mails recebidos
+                                </f:facet>
+                                <p:column headerText="E-mail Usuário">
+                                    #{row.rotulo}
+                                </p:column>
+                                <p:column headerText="Quantidade">
+                                    #{row.quantidade}
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:panel>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab title="Palavras-chave em e-mails">
+                <h:panelGrid columns="2" cellpadding="10" style="margin-bottom:10px">
+                    <h:form>
+                        <p:panel>
+                            <p:outputLabel for="mes" value="Escolha um Mês: " />
+                            <p:selectOneMenu id="mes" value="#{beanRelatorios.mes}"
+                                             effect="fold" editable="false">
+                                <f:selectItem itemLabel="Escolha um Mês" itemValue="" />
+                                <f:selectItems value="#{beanRelatorios.meses}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Gerar Relatório"
+                                             update="relatorioPalavrasChave"
+                                             action="#{beanRelatorios.getRelatorioPalavrasChave}"
+                                             icon="ui-icon-check"></p:commandButton>
+                        </p:panel>
+                        <p:panel id="relatorioPalavrasChave" style="border:0px;">
+                            <h:outputText
+                                value="Não houve palavras-chave interceptadas no mês selecionado!"
+                                rendered="#{empty beanRelatorios.listaRelatorioPalavrasChaveEmails}" />
+                            <p:dataTable
+                                value="#{beanRelatorios.listaRelatorioPalavrasChaveEmails}"
+                                var="row"
+                                rendered="#{not empty beanRelatorios.listaRelatorioPalavrasChaveEmails}"
+                                rowKey="#{row.remetente}">
+                                <f:facet name="header">
+                                    Palavras-chave em e-mails
+                                </f:facet>
+                                <p:column headerText="Data">
+                                    #{row.dataString}
+                                </p:column>
+                                <p:column headerText="Remetente">
+                                    #{row.remetente}
+                                </p:column>
+                                <p:column headerText="Destinatário">
+                                    #{row.destinatario}
+                                </p:column>
+                                <p:column headerText="Assunto">
+                                    #{row.assunto}
+                                </p:column>
+                            </p:dataTable>
+                            <p>
+                                <h3>Palavras-chave:</h3>
+                            </p>
+                            <h:outputText style="float: left;"
+                                          value="#{beanRelatorios.palavrasChave}" />
+                        </p:panel>
+                    </h:form>
+                </h:panelGrid>
+            </p:tab>
+
+        </p:tabView>
+
+    </h:body>
+</html>
+
